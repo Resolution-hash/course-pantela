@@ -26,16 +26,12 @@ type Message struct {
 
 var message Message
 
-// type Message struct{
-// 	Text string `json:"text"`
-// }
-
 func HelloHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "hello, ", message.Text)
 
 }
 
-func MessageHandler(w http.ResponseWriter, r *http.Request) {
+func PostHandler(w http.ResponseWriter, r *http.Request) {
 	data, err := io.ReadAll(r.Body)
 	if err != nil {
 		fmt.Fprintln(w, err)
@@ -47,7 +43,7 @@ func MessageHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, err)
 		return
 	}
-	fmt.Println("message:", message.Text)
+	fmt.Fprintln(w, "Success")
 }
 
 func main() {
@@ -55,7 +51,7 @@ func main() {
 	router := mux.NewRouter()
 
 	router.HandleFunc("/api/hello", HelloHandler).Methods("GET")
-	router.HandleFunc("/api/message", MessageHandler).Methods("POST")
+	router.HandleFunc("/api/message", PostHandler).Methods("POST")
 
 	fmt.Println("Server is starting on port:8080")
 	http.ListenAndServe(":8080", router)
