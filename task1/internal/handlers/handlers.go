@@ -24,7 +24,11 @@ func (h *Handler) GetMesssageHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(messages)
+
+	err = json.NewEncoder(w).Encode(messages)
+	if err != nil{
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }
 
 func (h *Handler) PostMessageHandler(w http.ResponseWriter, r *http.Request) {
@@ -42,7 +46,10 @@ func (h *Handler) PostMessageHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(createdMessage)
+	err = json.NewEncoder(w).Encode(createdMessage)
+	if err != nil{
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }
 
 func (h *Handler) DeleteMessageHandler(w http.ResponseWriter, r *http.Request) {
@@ -89,5 +96,8 @@ func (h *Handler) PatchMessageHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(updatedMessage)
+	err = json.NewEncoder(w).Encode(updatedMessage)
+	if err != nil{
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }
