@@ -3,7 +3,6 @@ module github.com/Resolution-hash/course-pantela/task1
 go 1.22.3
 
 require (
-	github.com/gorilla/mux v1.8.1
 	github.com/labstack/echo/v4 v4.12.0
 	github.com/oapi-codegen/runtime v1.1.1
 	gorm.io/driver/postgres v1.5.9

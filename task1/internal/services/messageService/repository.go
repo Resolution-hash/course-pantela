@@ -37,7 +37,8 @@ func (r *messageRepository) GetAllMessage() ([]Message, error) {
 }
 
 func (r *messageRepository) UpdateMessageByID(id int, message Message) (Message, error) {
-	result := r.db.Model(&Message{}).Where("id = ?", id).Update("text", message.Text)
+	var msg Message
+	result := r.db.Model(&msg).Where("id = ?", id).Update("text", message.Text)
 	if result.Error != nil {
 		return Message{}, result.Error
 	}
